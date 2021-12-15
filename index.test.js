@@ -69,18 +69,63 @@ describe('[Exercise 4] Counter', () => {
   })
 })
 
-// describe('[Exercise 5] Seasons', () => {
-//   let seasons
-//   beforeEach(() => {
-//     seasons = new utils.Seasons() // each test must start with fresh seasons
-//   })
-//   // test('[9] the FIRST call of seasons.next returns "summer"', () => {})
-//   // test('[10] the SECOND call of seasons.next returns "fall"', () => {})
-//   // test('[11] the THIRD call of seasons.next returns "winter"', () => {})
-//   // test('[12] the FOURTH call of seasons.next returns "spring"', () => {})
-//   // test('[13] the FIFTH call of seasons.next returns again "summer"', () => {})
-//   // test('[14] the 40th call of seasons.next returns "spring"', () => {})
-// })
+describe('[Exercise 5] Seasons', () => {
+  let seasons
+  beforeEach(() => {
+    seasons = new utils.Seasons() // each test must start with fresh seasons
+  })
+
+  test('[9] the FIRST call of seasons.next returns "summer"', () => {
+    const actual = seasons.next()
+    const expected = 'summer'
+    expect(actual).toBe(expected)
+  })
+
+  test('[10] the SECOND call of seasons.next returns "fall"', () => {
+    seasons.next()
+    const actual = seasons.next()
+    const expected = 'fall'
+    expect(actual).toBe(expected)
+  })
+
+  test('[11] the THIRD call of seasons.next returns "winter"', () => {
+    seasons.next()
+    seasons.next()
+    const actual = seasons.next()
+    const expected = 'winter'
+    expect(actual).toBe(expected)
+  })
+
+  test('[12] the FOURTH call of seasons.next returns "spring"', () => {
+    seasons.next()
+    seasons.next()
+    seasons.next()
+    const actual = seasons.next()
+    const expected = 'spring'
+    expect(actual).toBe(expected)
+  })
+
+  test('[13] the FIFTH call of seasons.next returns again "summer"', () => {
+    seasons.next()
+    seasons.next()
+    seasons.next()
+    seasons.next()
+    const actual = seasons.next()
+    const expected = 'summer'
+    expect(actual).toBe(expected)
+  })
+
+  test('[14] the 40th call of seasons.next returns "spring"', () => {
+    seasons.next()
+    seasons.next()
+    seasons.next()
+    seasons.next()
+    seasons.next()
+    const actual = seasons.next()
+    const expected = 'fall'
+    expect(actual).toBe(expected)
+  })
+})
 
 // describe('[Exercise 6] Car', () => {
 //   let focus
