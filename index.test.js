@@ -139,18 +139,31 @@ describe('[Exercise 6] Car', () => {
   })
 
   test('[16] driving the car uses gas', () => {
-    const expected = focus.tank - focus.mpg / 100
+    const expected = focus.tank - 100 / focus.mpg
     focus.drive(100)
     expect(focus.tank).toEqual(expected)
+
+    focus.drive(600)
+    expect(focus.tank).toEqual(0)
+    expect(focus.odometer).toEqual(600)
+
+    focus.drive(100)
+    expect(focus.tank).toEqual(0)
+    expect(focus.odometer).toEqual(600)
   })
 
   test('[17] refueling allows to keep driving', () => {
-    // console.log(focus.tank)
-    // focus.drive(400)
-    // console.log(focus.tank)
+    focus.drive(600)
+    focus.refuel(20)
+    focus.drive(200)
+    expect(focus.odometer).toEqual(800)
   })
 
-  // test('[18] adding fuel to a full tank has no effect', () => {})
+  test('[18] adding fuel to a full tank has no effect', () => {
+    const expected = focus.tank
+    focus.refuel(200)
+    expect(focus.tank).toEqual(expected)
+  })
 })
 
 describe('[Exercise 7] isEvenNumberAsync', () => {

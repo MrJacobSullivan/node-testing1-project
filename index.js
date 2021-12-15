@@ -6,9 +6,8 @@
  * EXAMPLE
  * trimProperties({ name: '  jane  ' }) // returns a new object { name: 'jane' }
  */
-function trimProperties(obj) {
+const trimProperties = (obj) => {
   const copy = {}
-  Object.assign(copy, obj)
   for (const [key, value] of Object.entries(obj)) {
     copy[key] = value.trim()
   }
@@ -25,14 +24,12 @@ console.log(trimProperties({ foo: '  foo ', bar: 'bar ', baz: ' baz' }))
  * EXAMPLE
  * trimPropertiesMutation({ name: '  jane  ' }) // returns the object mutated in place { name: 'jane' }
  */
-function trimPropertiesMutation(obj) {
+const trimPropertiesMutation = (obj) => {
   for (const [key, value] of Object.entries(obj)) {
     obj[key] = value.trim()
   }
   return obj
 }
-
-console.log(trimPropertiesMutation({ foo: '  foo ', bar: 'bar ', baz: ' baz' }))
 
 /**
  * [Exercise 3] findLargestInteger finds the largest integer in an array of objects { integer: 1 }
@@ -42,7 +39,7 @@ console.log(trimPropertiesMutation({ foo: '  foo ', bar: 'bar ', baz: ' baz' }))
  * EXAMPLE
  * findLargestInteger([{ integer: 1 }, { integer: 3 }, { integer: 2 }]) // returns 3
  */
-function findLargestInteger(integers) {
+const findLargestInteger = (integers) => {
   return integers.reduce((val, { integer: cur }) => {
     if (cur > val) return cur
     return val
@@ -117,6 +114,7 @@ class Car {
     // ✨ initialize whatever other properties are needed
     this.name = name
     this.mpg = mpg
+    this.tankSize = tankSize
   }
 
   /**
@@ -133,9 +131,17 @@ class Car {
    * focus.drive(200) // returns 600 (ran out of gas after 100 miles)
    */
   drive(distance) {
-    this.odometer += distance
-    this.tank -= this.mpg / distance
+    const maxDistance = this.mpg * this.tank
+    if (distance === 0 || maxDistance === 0) return this.odometer
 
+    if (distance < maxDistance) {
+      this.odometer += distance
+      this.tank -= distance / this.mpg
+      return this.odometer
+    }
+
+    this.odometer += maxDistance
+    this.tank -= maxDistance / this.mpg
     return this.odometer
   }
 
@@ -152,9 +158,8 @@ class Car {
    */
   refuel(gallons) {
     const sum = this.tank + gallons
-    if (sum > 20) this.tank = 20
-    else this.tank = sum
-    return this.tank / this.mpg
+    if (sum > this.tankSize) return (this.tank = this.tankSize)
+    return (this.tank = sum)
   }
 }
 
@@ -171,9 +176,7 @@ class Car {
  *    // result is false
  * })
  */
-async function isEvenNumberAsync(number) {
-  return number % 2 === 0
-}
+const isEvenNumberAsync = async (number) => number % 2 === 0
 
 module.exports = {
   trimProperties,
