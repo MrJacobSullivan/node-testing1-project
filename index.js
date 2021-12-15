@@ -43,10 +43,10 @@ console.log(trimPropertiesMutation({ foo: '  foo ', bar: 'bar ', baz: ' baz' }))
  * findLargestInteger([{ integer: 1 }, { integer: 3 }, { integer: 2 }]) // returns 3
  */
 function findLargestInteger(integers) {
-  return integers.reduce((val, cur) => {
-    if (cur.integer > val) return cur.integer
+  return integers.reduce((val, { integer: cur }) => {
+    if (cur > val) return cur
     return val
-  }, 0)
+  }, null)
 }
 
 class Counter {
@@ -56,6 +56,7 @@ class Counter {
    */
   constructor(initialNumber) {
     // ✨ initialize whatever properties are needed
+    this.value = initialNumber
   }
 
   /**
@@ -71,7 +72,8 @@ class Counter {
    * counter.countDown() // returns 0
    */
   countDown() {
-    // ✨ implement
+    if (this.value > 0) return this.value--
+    return this.value
   }
 }
 
