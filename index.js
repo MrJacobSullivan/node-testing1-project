@@ -7,8 +7,15 @@
  * trimProperties({ name: '  jane  ' }) // returns a new object { name: 'jane' }
  */
 function trimProperties(obj) {
-  // ✨ implement
+  const copy = {}
+  Object.assign(copy, obj)
+  for (const [key, value] of Object.entries(obj)) {
+    copy[key] = value.trim()
+  }
+  return copy
 }
+
+console.log(trimProperties({ foo: '  foo ', bar: 'bar ', baz: ' baz' }))
 
 /**
  * [Exercise 2] trimPropertiesMutation trims in place the properties of an object
@@ -19,8 +26,13 @@ function trimProperties(obj) {
  * trimPropertiesMutation({ name: '  jane  ' }) // returns the object mutated in place { name: 'jane' }
  */
 function trimPropertiesMutation(obj) {
-  // ✨ implement
+  for (const [key, value] of Object.entries(obj)) {
+    obj[key] = value.trim()
+  }
+  return obj
 }
+
+console.log(trimPropertiesMutation({ foo: '  foo ', bar: 'bar ', baz: ' baz' }))
 
 /**
  * [Exercise 3] findLargestInteger finds the largest integer in an array of objects { integer: 1 }
@@ -31,7 +43,10 @@ function trimPropertiesMutation(obj) {
  * findLargestInteger([{ integer: 1 }, { integer: 3 }, { integer: 2 }]) // returns 3
  */
 function findLargestInteger(integers) {
-  // ✨ implement
+  return integers.reduce((val, cur) => {
+    if (cur.integer > val) return cur.integer
+    return val
+  }, 0)
 }
 
 class Counter {
